@@ -1,0 +1,52 @@
+<!--index.wxml-->
+<view class="home">
+    <view class="top">
+         <image src="http://101.201.102.193/ds/static/img/bg-2.png"></image> 
+         <!-- <view class="name"></view> -->
+    </view>
+    <view class="tab-nav">
+        <block wx:for="{{tabList}}" wx:key="index">
+            <view class="item {{index==tabIndex?'active':''}}" bindtap="tab" data-index="{{index}}">
+                <view class="number" wx:if="{{index == 0}}">
+                    {{nums.all}}
+                </view>
+                <view class="number" wx:if="{{index == 1}}">
+                    {{nums.new}}
+                </view>
+                <view class="number" wx:if="{{index == 2}}">
+                    {{nums.hot}}
+                </view>
+                <view class="title">{{item}}</view>
+            </view>
+        </block>
+    </view>
+    <view class="weui-loadmore" wx:if="{{loadingFlag}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="tab-box">
+        <block wx:for="{{shopList}}" wx:key="index">
+            <view class="list clear" wx:if="{{index==tabIndex}}">
+                <block wx:for="{{item}}" wx:key="subindex" wx:for-index="subindex" wx:for-item="subitem">
+                    <view class="item">
+                        <navigator url="../detail/index?id={{subitem.id}}">
+                            <image src="{{ base_url + subitem.img}}" mode="aspectFill"></image>
+                            <view class="info">
+                                <view class="name">{{subitem.name}}</view>
+                                <view class="price">￥{{subitem.price}}</view>
+                            </view>
+                        </navigator>
+                    </view>
+                </block>
+            </view>
+        </block>
+    </view> 
+     <view class="tab-box no-shop" wx:if="{{shopList[tabIndex].length == 0 && !loadingFlag}}">
+        <view class="img"></view>
+        <view class="txt">抱歉，暂无符合条件的商品</view>
+    </view> 
+    <view class="refer-box">
+        <button open-type="contact"><view></view></button>
+        <view class="txt" bindtap="saoma">咨询</view>
+    </view>
+</view>
